@@ -8,12 +8,12 @@ class ChangeBirthday extends StatelessWidget {
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Your Birthday',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_info');
           },
@@ -34,7 +34,7 @@ class ChangeBirthday extends StatelessWidget {
         
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),
-                child: TextButton(onPressed: (){}, child: Text("Change birthday", style: TextStyle(
+                child: TextButton(onPressed: (){}, child: const Text("Change birthday", style: TextStyle(
                   color: Colors.blue,
                 ),)),
               )

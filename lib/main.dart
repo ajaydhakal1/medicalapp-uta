@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:profile_page/Pages/account_management/account%20information/account_information.dart';
 import 'package:profile_page/Pages/account_management/account%20information/change_birthday.dart';
@@ -10,6 +12,7 @@ import 'package:profile_page/Pages/account_management/account%20information/two_
 import 'package:profile_page/Pages/account_management/device_management/device_management.dart';
 import 'package:profile_page/Pages/account_management/medical_information_mgmt.dart';
 import 'package:profile_page/Pages/account_management/privacy_security_mgmt.dart';
+import 'package:profile_page/Pages/homepage/homepage.dart';
 import 'package:profile_page/Pages/profile/adherence.dart';
 import 'package:profile_page/Pages/profile/medical_detais.dart';
 import 'package:profile_page/Pages/profile/medical_information.dart';
@@ -23,14 +26,46 @@ import 'package:profile_page/Pages/settings/language_preferences.dart';
 import 'package:profile_page/Pages/settings/notification.dart';
 import 'package:profile_page/Pages/settings/settings.dart';
 import 'package:profile_page/Pages/settings/support_and_help.dart';
+import 'package:profile_page/theme/theme.dart';
 
 
 void main() {
-  runApp(const MyApp());
+ runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+ThemeManager _themeManager = ThemeManager();
+
+class MyApp extends StatefulWidget {
+   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final ThemeManager _themeManager = ThemeManager();
+
+@override 
+void dispose(){
+  _themeManager.removeListener(themeListener);
+  super.dispose();
+}
+
+
+
+@override
+void initState(){
+  _themeManager.addListener(themeListener);
+  super.initState();
+}
+
+themeListener(){
+  if(mounted){
+    setState(() {
+      
+    });
+  }
+}
 
   // This widget is the root of your application.
   @override
@@ -38,15 +73,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Profile Page",
-      home: ProfilePage(),
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: 'Poppins',
-        scaffoldBackgroundColor: Colors.white,
-      ),
+      home: const HomePage(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeManager.themeMode,
       routes: {
-        '/profile': (context) => ProfilePage(),
-        '/editprofile': (context) => EditProfilePage(),
+        '/home' : (context) =>  const HomePage(),
+        '/profile': (context) => const ProfilePage(),
+        '/editprofile': (context) => const EditProfilePage(),
         '/medical_details': (context) => const MedicalDetais(),
         '/medical_information': (context) => const MedicalInformation(),
         '/adherence': (context) => const Adherence(),
@@ -64,10 +98,10 @@ class MyApp extends StatelessWidget {
         '/privacy_settings': (context) => const PrivacySettings(),
 
         //Account Management Routes
-        '/account_info': (context) => AccountInformation(),
+        '/account_info': (context) => const AccountInformation(),
         '/medical_info': (context) => const MedicalInformationMgmt(),
-        '/privacy_security_mgmt': (context) => PrivacySecurityMgmt(),
-        '/device_mgmt': (context) => DeviceManagement(),
+        '/privacy_security_mgmt': (context) => const PrivacySecurityMgmt(),
+        '/device_mgmt': (context) => const DeviceManagement(),
 
         //Account Informmation Routes
         '/changename': (context) => const ChangeName(),

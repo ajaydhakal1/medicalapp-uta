@@ -8,12 +8,12 @@ class ChangeNumber extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Change Mobile Number',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_info');
           },
@@ -33,7 +33,7 @@ class ChangeNumber extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 40.0),
                 child: TextButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     "Change number",
                     style: TextStyle(
                       color: Colors.blue,

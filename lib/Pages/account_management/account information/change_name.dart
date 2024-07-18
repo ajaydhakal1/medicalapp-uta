@@ -8,12 +8,12 @@ class ChangeName extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Display Name',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_info');
           },
@@ -34,7 +34,7 @@ class ChangeName extends StatelessWidget {
         
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),
-                child: TextButton(onPressed: (){}, child: Text("Remove name", style: TextStyle(
+                child: TextButton(onPressed: (){}, child: const Text("Remove name", style: TextStyle(
                   color: Colors.blue,
                 ),)),
               )

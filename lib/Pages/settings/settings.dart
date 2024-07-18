@@ -8,12 +8,12 @@ class Settings extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Settings',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/profile');
           },
@@ -24,56 +24,56 @@ class Settings extends StatelessWidget {
         padding: const EdgeInsets.all(2.0),
         child: Column(
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ListTile(
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Data and privacy settings"),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Data and privacy settings"),
               onTap: (){
                 //handle navigation
                 Navigator.pushNamed(context, '/data_privacy_settings');
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Language Preference"),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Language Preference"),
               onTap: (){
                 //handle navigation
                 Navigator.pushNamed(context, '/language_pref');
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Account Management"),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Account Management"),
               onTap: (){
                 //handle navigation
                 Navigator.pushNamed(context, '/account_mgmt');
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Notification"),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Notification"),
               onTap: (){
                 //handle navigation
                 Navigator.pushNamed(context, '/notification');
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Support and help"),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Support and help"),
               onTap: (){
                 //handle navigation
                 Navigator.pushNamed(context, '/support_and_help');
               },
             ),
             ListTile(
-              leading: Icon(Icons.logout),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
-              title: Text("Log out"),
+              leading: const Icon(Icons.logout),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
+              title: const Text("Log out"),
               onTap: (){
                 //handle logout
                 

@@ -8,26 +8,26 @@ class AccountManagement extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Account Management',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/settings');
           },
         ),
       ),
       body: Padding(
-        padding: EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ListTile(
               title: const Text("Account information"),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
               onTap: () {
                 //handle navigation
                 Navigator.pushNamed(context, '/account_info');
@@ -35,8 +35,8 @@ class AccountManagement extends StatelessWidget {
             ),
             ListTile(
               title: const Text("Medical information"),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
               onTap: () {
                 //handle navigation
                 Navigator.pushNamed(context, '/medical_info');
@@ -44,8 +44,8 @@ class AccountManagement extends StatelessWidget {
             ),
             ListTile(
               title: const Text("Privacy and security"),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
               onTap: () {
                 //handle navigation
                 Navigator.pushNamed(context, '/privacy_security_mgmt');
@@ -53,8 +53,8 @@ class AccountManagement extends StatelessWidget {
             ),
             ListTile(
               title: const Text("Device Management"),
-              leading: Icon(Icons.home),
-              trailing: Icon(Icons.arrow_forward_ios_sharp),
+              leading: const Icon(Icons.home),
+              trailing: const Icon(Icons.arrow_forward_ios_sharp),
               onTap: () {
                 //handle navigation
                 Navigator.pushNamed(context, '/device_mgmt');

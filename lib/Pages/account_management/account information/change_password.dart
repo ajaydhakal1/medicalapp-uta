@@ -8,12 +8,12 @@ class ChangePassword extends StatelessWidget {
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Change Password',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_info');
           },
@@ -38,7 +38,7 @@ class ChangePassword extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 40.0),
                 child: TextButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Forgot your password?",
                       style: TextStyle(
                         color: Colors.blue,
@@ -47,7 +47,7 @@ class ChangePassword extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 60.0),
-                child: ElevatedButton(onPressed: () {}, child: Text("Continue")),
+                child: ElevatedButton(onPressed: () {}, child: const Text("Continue")),
               )
             ],
           ),

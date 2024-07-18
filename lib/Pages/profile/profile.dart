@@ -1,14 +1,20 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:profile_page/theme/theme.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  bool isDarkMode = false;
+
+final ThemeManager _themeManager = ThemeManager();
+final ThemeMode _themeMode = ThemeMode.light;
+bool isDarkMode = false;
 
   void handleLogOut() {
     showDialog(
@@ -38,14 +44,17 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           'Profile',
           style: TextStyle(fontWeight: FontWeight.w600),
         ),
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/home");
+          },
           icon: Icon(Icons.arrow_back_ios_new),
         ),
       ),
@@ -54,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             Row(
-              children: [
+              children: const [
                 CircleAvatar(
                   radius: 30,
                   backgroundImage: AssetImage(
@@ -89,7 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Handle Edit Profile
                     Navigator.pushNamed(context, '/editprofile');
                   },
-                  child: Text('✏️_ Edit Profile'),
+                  child: Text('✏️ Edit Profile'),
                 ),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
@@ -102,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     // Handle Parental Guide
                   },
                   child: Text(
-                    '✏️_ Parental Guide',
+                    '✏️ Parental Guide',
                     style: TextStyle(
                       color: Color.fromARGB(204, 123, 123, 123),
                     ),
@@ -151,16 +160,13 @@ class _ProfilePageState extends State<ProfilePage> {
               leading: Icon(Icons.brightness_6),
               title: Text('Light/dark mode'),
               trailing: Switch(
-                value: isDarkMode,
+               value: _themeManager.themeMode == ThemeMode.dark,
                 onChanged: (value) {
                   setState(() {
-                    isDarkMode = value;
+                    _themeManager.toggleTheme(value);
                   });
                 },
               ),
-              onTap: () {
-                // Handle Light/dark mode
-              },
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,

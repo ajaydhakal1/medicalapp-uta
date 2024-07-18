@@ -8,12 +8,12 @@ class TwoFactorAuth extends StatelessWidget {
     return Scaffold(
        appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Two Factor Authentication',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_info');
           },
@@ -28,8 +28,8 @@ class TwoFactorAuth extends StatelessWidget {
                 "Keep in mind that if you lose access to your wat to generate a login code, you could get locked out of your account.",
                 style: TextStyle(color: Color.fromARGB(213, 0, 0, 0)),
               ),
-              Padding(
-                  padding: const EdgeInsets.only(top: 150.0),
+              const Padding(
+                  padding: EdgeInsets.only(top: 150.0),
                   child: Center(
                     child: Text(
                       "Do you want to enable Two Factor Authentication?",
@@ -43,7 +43,7 @@ class TwoFactorAuth extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.all(120.0),
-                    child: ElevatedButton(onPressed: (){}, child: Text("Continue")),
+                    child: ElevatedButton(onPressed: (){}, child: const Text("Continue")),
                   )
             ],
           ),

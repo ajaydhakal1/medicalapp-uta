@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AccountInformation extends StatelessWidget {
+  const AccountInformation({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Account Information',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/account_mgmt');
           },
@@ -54,14 +56,14 @@ class AccountInformation extends StatelessWidget {
               flex: 2,
               child: Text(
                 label,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
               flex: 3,
               child: Text(
                 value,
-                style: TextStyle(color: Color.fromARGB(226, 94, 94, 94)),
+                style: const TextStyle(color: Color.fromARGB(226, 94, 94, 94)),
               ),
             ),
           ],

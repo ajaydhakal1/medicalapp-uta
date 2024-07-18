@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
 }
@@ -23,12 +25,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
+        title: const Text(
           'Edit Profile',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pushNamed(context, '/profile');
           },
@@ -38,15 +40,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 30,
               backgroundImage: AssetImage(
                   'assets/images/avatar.png'), // Add your avatar image
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.blue),
+                side: const BorderSide(color: Colors.blue),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -54,9 +56,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
               onPressed: () {
                 // Handle Edit Profile Picture
               },
-              child: Text('✏️ Edit Profile'),
+              child: const Text('✏️ Edit Profile'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             buildProfileDetailRow('Name', nameController),
             buildProfileDetailRow('Age', ageController),
             buildProfileDetailRow('Date of birth', dobController),
@@ -78,14 +80,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
             flex: 1,
             child: Text(
               label,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
             flex: 2,
             child: TextField(
               controller: controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 isDense: true, // Added to make the text field smaller
               ),
