@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class UserFeedback extends StatelessWidget {
+class UserFeedback extends StatefulWidget {
   const UserFeedback({super.key});
+
+  @override
+  State<UserFeedback> createState() => _UserFeedbackState();
+}
+
+class _UserFeedbackState extends State<UserFeedback> {
+  void _handleSubmit() {
+    // Handle bug report submission logic here
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Submitted Successfully!')),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +80,23 @@ class UserFeedback extends StatelessWidget {
               ],
             ),
           ),
+           Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: ElevatedButton(
+                onPressed: _handleSubmit,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                child: const Text(
+                  "Submit",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
         ],
       ),
     );

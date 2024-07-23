@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:profile_page/Pages/Notification/show_notifications.dart';
 import 'package:profile_page/Pages/account_management/account%20information/account_information.dart';
 import 'package:profile_page/Pages/account_management/account%20information/change_birthday.dart';
 import 'package:profile_page/Pages/account_management/account%20information/change_gmail.dart';
@@ -120,6 +121,9 @@ class _MyAppState extends State<MyApp> {
         '/feedback': (context) => const UserFeedback(),
         '/bug_report': (context) => const BugReport(),
         '/make_suggestion': (context) => const MakeSuggestion(),
+
+        //Notifications
+        '/show_notifications': (context) => const ShowNotifications(),
       },
     );
   }

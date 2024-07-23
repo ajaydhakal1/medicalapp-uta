@@ -50,11 +50,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
             DottedBorder(
                   dashPattern: const [8,4],
                   borderType: BorderType.RRect,
-                  radius: Radius.circular(8.0),
-                  color: Color.fromARGB(204, 169, 169, 169),
+                  radius: const Radius.circular(8.0),
+                  color: const Color.fromARGB(204, 169, 169, 169),
                   child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.transparent),
+                      side: const BorderSide(color: Colors.transparent),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         ),
@@ -63,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       // Handle Edit Profile
                       
                     },
-                    child: Text('✏️_ Edit Profile', style: TextStyle(
+                    child: const Text('✏️_ Edit Profile', style: TextStyle(
                       color: Colors.blue,
                     ),),
                   ),

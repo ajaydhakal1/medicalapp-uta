@@ -86,7 +86,6 @@ class _ProfilePageState extends State<ProfilePage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text("No"),
                             style: ElevatedButton.styleFrom(
                               side: BorderSide(color: Colors.blue,
                               width: 1.0,
@@ -99,6 +98,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   left: 70.0,
                                   right: 70.0),
                             ),
+                            child: Text("No"),
                           ),
                         ],
                       ),
