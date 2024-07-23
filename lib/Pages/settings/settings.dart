@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -53,7 +54,7 @@ class Settings extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.home),
+              leading: const Icon(LineAwesomeIcons.hackerrank),
               trailing: const Icon(Icons.arrow_forward_ios_sharp),
               title: const Text("Notification"),
               onTap: (){

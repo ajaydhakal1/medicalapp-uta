@@ -25,19 +25,20 @@ import 'package:profile_page/Pages/settings/data%20and%20privacy/privacy_setting
 import 'package:profile_page/Pages/settings/language_preferences.dart';
 import 'package:profile_page/Pages/settings/notification.dart';
 import 'package:profile_page/Pages/settings/settings.dart';
-import 'package:profile_page/Pages/settings/support_and_help.dart';
+import 'package:profile_page/Pages/settings/support_and_help/bug_report.dart';
+import 'package:profile_page/Pages/settings/support_and_help/feedback.dart';
+import 'package:profile_page/Pages/settings/support_and_help/help_center.dart';
+import 'package:profile_page/Pages/settings/support_and_help/make_suggestion.dart';
+import 'package:profile_page/Pages/settings/support_and_help/report_problem.dart';
+import 'package:profile_page/Pages/settings/support_and_help/support_and_help.dart';
 import 'package:profile_page/theme/theme.dart';
 
-
 void main() {
- runApp(const MyApp());
+  runApp(const MyApp());
 }
 
-ThemeManager _themeManager = ThemeManager();
-
 class MyApp extends StatefulWidget {
-   const MyApp({super.key});
-
+  const MyApp({super.key});
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -45,40 +46,41 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final ThemeManager _themeManager = ThemeManager();
 
-@override 
-void dispose(){
-  _themeManager.removeListener(themeListener);
-  super.dispose();
-}
-
-
-
-@override
-void initState(){
-  _themeManager.addListener(themeListener);
-  super.initState();
-}
-
-themeListener(){
-  if(mounted){
-    setState(() {
-      
-    });
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
   }
-}
+
+  @override
+  void initState() {
+    _themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Profile Page",
+      title: "Cure Me",
       home: const HomePage(),
-      theme: lightTheme,
+      theme: ThemeData(
+          primarySwatch: Colors.blue,
+          fontFamily: 'Poppins',
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+          canvasColor: Colors.white),
       darkTheme: darkTheme,
       themeMode: _themeManager.themeMode,
       routes: {
-        '/home' : (context) =>  const HomePage(),
+        '/home': (context) => const HomePage(),
         '/profile': (context) => const ProfilePage(),
         '/editprofile': (context) => const EditProfilePage(),
         '/medical_details': (context) => const MedicalDetais(),
@@ -91,7 +93,6 @@ themeListener(){
         '/language_pref': (context) => const LanguagePreferences(),
         '/account_mgmt': (context) => const AccountManagement(),
         '/notification': (context) => const NotificationPage(),
-        '/support_and_help': (context) => const SupportAndHelp(),
 
         //Data and Privacy routes
         '/data_sharing': (context) => const DataSharing(),
@@ -111,6 +112,14 @@ themeListener(){
         '/changegmail': (context) => const ChangeGmail(),
         '/changepassword': (context) => const ChangePassword(),
         '/two_factor_auth': (context) => const TwoFactorAuth(),
+
+        //Settings => Support and Help
+        '/support_and_help': (context) => const SupportAndHelp(),
+        '/report_problem': (context) => const ReportProblem(),
+        '/helpcenter': (context) => const HelpCenter(),
+        '/feedback': (context) => const UserFeedback(),
+        '/bug_report': (context) => const BugReport(),
+        '/make_suggestion': (context) => const MakeSuggestion(),
       },
     );
   }

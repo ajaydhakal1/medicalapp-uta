@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:profile_page/theme/theme.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -11,42 +13,106 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  final ThemeManager _themeManager = ThemeManager();
+  bool isDarkMode = false;
 
-final ThemeManager _themeManager = ThemeManager();
-final ThemeMode _themeMode = ThemeMode.light;
-bool isDarkMode = false;
 
-  void handleLogOut() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              // handle logout
-              Navigator.of(context).pop();
-            },
-            child: Text("Yes"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text("No"),
-          ),
-        ],
-        title: Text("Log Out"),
-        content: Text("Are you sure you want to log out?"),
-      ),
-    );
+  Future<void> _displayBottomSheet(BuildContext context) async {
+    return showModalBottomSheet(
+      shape: BeveledRectangleBorder(),
+        context: context,
+        builder: (context) => Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Container(
+                height: 150,
+                alignment: Alignment.topLeft,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(
+                          top: 5.0, left: 10.0, right: 10.0, bottom: 2.0),
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Log Out",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 11.0, bottom: 20.0),
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Are you sure you want to log out?",
+                          style: TextStyle(
+                            fontSize: 14.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              padding: EdgeInsets.only(
+                                  top: 20.0,
+                                  bottom: 20.0,
+                                  left: 70.0,
+                                  right: 70.0),
+                              backgroundColor: Colors.blue,
+                            ),
+                            child: Text(
+                              "Yes",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text("No"),
+                            style: ElevatedButton.styleFrom(
+                              side: BorderSide(color: Colors.blue,
+                              width: 1.0,
+                              ),
+                              shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                              padding: EdgeInsets.only(
+                                  top: 20.0,
+                                  bottom: 20.0,
+                                  left: 70.0,
+                                  right: 70.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.surface,
         title: Text(
           'Profile',
           style: TextStyle(fontWeight: FontWeight.w600),
@@ -84,44 +150,62 @@ bool isDarkMode = false;
               ],
             ),
             SizedBox(height: 16),
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.blue),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                DottedBorder(
+                  dashPattern: const [8,4],
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(8.0),
+                  color: Color.fromARGB(204, 169, 169, 169),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.transparent),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        ),
                     ),
+                    onPressed: () {
+                      // Handle Edit Profile
+                      Navigator.pushNamed(context, '/editprofile');
+                    },
+                    child: Text('✏️_ Edit Profile', style: TextStyle(
+                      color: Colors.blue,
+                    ),),
                   ),
-                  onPressed: () {
-                    // Handle Edit Profile
-                    Navigator.pushNamed(context, '/editprofile');
-                  },
-                  child: Text('✏️ Edit Profile'),
                 ),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.blue),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+
+                DottedBorder(
+                  dashPattern: const [8,4],
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(8.0),
+                  color: Colors.blue,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.transparent),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        ),
                     ),
-                  ),
-                  onPressed: () {
-                    // Handle Parental Guide
-                  },
-                  child: Text(
-                    '✏️ Parental Guide',
+                    onPressed: () {
+                      // Handle Parental Guide
+                      
+                    },
+                    child: Text('✏️_ Parental Guide', 
                     style: TextStyle(
-                      color: Color.fromARGB(204, 123, 123, 123),
-                    ),
+                      color: Color.fromARGB(238, 186, 185, 184),
+                    ),),
                   ),
                 ),
+                
               ],
             ),
-            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: SizedBox(height: 16),
+            ),
             ListTile(
-              leading: Icon(Icons.medical_services),
+              leading: Icon(LineAwesomeIcons.home_solid),
               trailing: Icon(Icons.arrow_forward_ios_sharp),
               title: Text('Medical details'),
               onTap: () {
@@ -160,7 +244,7 @@ bool isDarkMode = false;
               leading: Icon(Icons.brightness_6),
               title: Text('Light/dark mode'),
               trailing: Switch(
-               value: _themeManager.themeMode == ThemeMode.dark,
+                value: _themeManager.themeMode == ThemeMode.dark,
                 onChanged: (value) {
                   setState(() {
                     _themeManager.toggleTheme(value);
@@ -168,16 +252,11 @@ bool isDarkMode = false;
                 },
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                ListTile(
-                  leading: Icon(Icons.logout),
-                  trailing: Icon(Icons.arrow_forward_ios_sharp),
-                  title: Text('Log Out'),
-                  onTap: handleLogOut,
-                ),
-              ],
+            ListTile(
+              leading: Icon(Icons.logout),
+              trailing: Icon(Icons.arrow_forward_ios_sharp),
+              title: Text('Log Out'),
+              onTap: () => _displayBottomSheet(context),
             ),
           ],
         ),
