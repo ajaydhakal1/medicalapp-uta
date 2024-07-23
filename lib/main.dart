@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       home: const HomePage(),
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily: 'Poppins',
+          fontFamily: 'fonts/Poppins',
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
           canvasColor: Colors.white),

@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 class EditProfilePage extends StatefulWidget {
@@ -46,18 +47,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   'assets/images/avatar.png'), // Add your avatar image
             ),
             const SizedBox(height: 8),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.blue),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+            DottedBorder(
+                  dashPattern: const [8,4],
+                  borderType: BorderType.RRect,
+                  radius: Radius.circular(8.0),
+                  color: Color.fromARGB(204, 169, 169, 169),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.transparent),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        ),
+                    ),
+                    onPressed: () {
+                      // Handle Edit Profile
+                      
+                    },
+                    child: Text('✏️_ Edit Profile', style: TextStyle(
+                      color: Colors.blue,
+                    ),),
+                  ),
                 ),
-              ),
-              onPressed: () {
-                // Handle Edit Profile Picture
-              },
-              child: const Text('✏️ Edit Profile'),
-            ),
             const SizedBox(height: 16),
             buildProfileDetailRow('Name', nameController),
             buildProfileDetailRow('Age', ageController),
