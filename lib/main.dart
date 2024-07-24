@@ -93,7 +93,7 @@ class _MyAppState extends State<MyApp> {
         '/data_privacy_settings': (context) => const DataPrivacySettings(),
         '/language_pref': (context) => const LanguagePreferences(),
         '/account_mgmt': (context) => const AccountManagement(),
-        '/notification': (context) => const NotificationPage(),
+        '/notification': (context) => NotificationSettings(),
 
         //Data and Privacy routes
         '/data_sharing': (context) => const DataSharing(),

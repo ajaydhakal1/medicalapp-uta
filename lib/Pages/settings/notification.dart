@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:settings_ui/settings_ui.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({super.key});
-
+class NotificationSettings extends StatefulWidget {
   @override
-  State<NotificationPage> createState() => _NotificationPageState();
+  _NotificationSettingsState createState() => _NotificationSettingsState();
 }
 
-class _NotificationPageState extends State<NotificationPage> {
-  bool pauseNotification = false;
+class _NotificationSettingsState extends State<NotificationSettings> {
+  bool pauseAllNotifications = true;
 
   @override
   Widget build(BuildContext context) {
@@ -17,55 +16,49 @@ class _NotificationPageState extends State<NotificationPage> {
         backgroundColor: Colors.white,
         title: const Text(
           'Notification',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () {
             Navigator.pushNamed(context, '/settings');
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            ListTile(
-              title: const Text(
-                'Pause all',
-                style: TextStyle(
-                  fontSize: 19,
+      body: Scaffold(
+        backgroundColor: Colors.white,
+        body: SettingsList(
+          sections: [
+            SettingsSection(
+              tiles: [
+                SettingsTile.switchTile(
+                  title: const Text('Pause all'),
+                  description: const Text('Temporarily pause notification'),
+                  activeSwitchColor: Colors.blue,
+                  initialValue: pauseAllNotifications,
+                  onToggle: (value) {
+                    setState(() {
+                      pauseAllNotifications = value;
+                    });
+                  },
                 ),
-              ),
-              trailing: Switch(
-                value: pauseNotification,
-                onChanged: (value) {
-                  setState(() {
-                    pauseNotification = value;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_sharp),
-              title: const Text(
-                'Email Notification',
-                style: TextStyle(
-                  fontSize: 19,
+                SettingsTile(
+                  title: const Text('Email notification'),
+                  leading: Icon(Icons.email),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  onPressed: (BuildContext context) {
+                    // Navigate to Email notification settings
+                  },
                 ),
-              ),
-              onTap: () {},
-            ),
-            ListTile(
-              trailing: const Icon(Icons.arrow_forward_ios_sharp),
-              title: const Text(
-                'Messages',
-                style: TextStyle(
-                  fontSize: 19,
+                SettingsTile(
+                  title: const Text('Messages'),
+                  leading: Icon(Icons.message),
+                  trailing: Icon(Icons.arrow_forward_ios),
+                  onPressed: (BuildContext context) {
+                    // Navigate to Messages settings
+                  },
                 ),
-              ),
-              onTap: () {},
+              ],
             ),
           ],
         ),

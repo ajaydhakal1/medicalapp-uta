@@ -43,6 +43,7 @@ dependencies:
   rename_app: ^1.6.1
   font_awesome_flutter: ^10.1.0
   google_fonts: ^5.1.0
+  settings_ui: ^2.0.2
 
   
 flutter_icons:

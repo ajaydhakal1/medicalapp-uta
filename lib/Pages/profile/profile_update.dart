@@ -1,3 +1,5 @@
+// edit_profile_page.dart
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final TextEditingController phoneController =
       TextEditingController(text: '9780808080');
 
+  bool isEditing = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +37,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
-            Navigator.pushNamed(context, '/profile');
+           Navigator.pop(context);
           },
         ),
       ),
@@ -42,32 +46,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
         child: Column(
           children: [
             const CircleAvatar(
-              radius: 30,
+              radius: 40,
               backgroundImage: AssetImage(
                   'assets/images/avatar.png'), // Add your avatar image
             ),
             const SizedBox(height: 8),
-            DottedBorder(
-                  dashPattern: const [8,4],
-                  borderType: BorderType.RRect,
-                  radius: const Radius.circular(8.0),
-                  color: const Color.fromARGB(204, 169, 169, 169),
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: Colors.transparent),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0),
-                        ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+              child: DottedBorder(
+                dashPattern: const [8, 4],
+                borderType: BorderType.RRect,
+                radius: const Radius.circular(8.0),
+                color: const Color.fromARGB(204, 169, 169, 169),
+                child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Colors.transparent),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                    onPressed: () {
-                      // Handle Edit Profile
-                      
-                    },
-                    child: const Text('✏️_ Edit Profile', style: TextStyle(
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isEditing = !isEditing;
+                    });
+                  },
+                  child: Text(
+                    isEditing ? 'Save' : '✏️_ Edit Profile',
+                    style: TextStyle(
                       color: Colors.blue,
-                    ),),
+                    ),
                   ),
                 ),
+              ),
+            ),
             const SizedBox(height: 16),
             buildProfileDetailRow('Name', nameController),
             buildProfileDetailRow('Age', ageController),
@@ -97,6 +108,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             flex: 2,
             child: TextField(
               controller: controller,
+              enabled: isEditing,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 isDense: true, // Added to make the text field smaller

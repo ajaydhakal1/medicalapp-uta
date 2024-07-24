@@ -1,8 +1,11 @@
+// profile_page.dart
+
 // ignore_for_file: prefer_const_constructors
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:profile_page/Pages/profile/profile_update.dart';
 import 'package:profile_page/theme/theme.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -16,97 +19,92 @@ class _ProfilePageState extends State<ProfilePage> {
   final ThemeManager _themeManager = ThemeManager();
   bool isDarkMode = false;
 
-
   Future<void> _displayBottomSheet(BuildContext context) async {
     return showModalBottomSheet(
       shape: BeveledRectangleBorder(),
-        context: context,
-        builder: (context) => Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Container(
-                height: 150,
-                alignment: Alignment.topLeft,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+      context: context,
+      builder: (context) => Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Container(
+          height: 150,
+          alignment: Alignment.topLeft,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    top: 5.0, left: 10.0, right: 10.0, bottom: 2.0),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Log Out",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 11.0, bottom: 20.0),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "Are you sure you want to log out?",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: 5.0, left: 10.0, right: 10.0, bottom: 2.0),
-                      child: Container(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Log Out",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400,
-                          ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 70.0, right: 70.0),
+                        backgroundColor: Colors.blue,
+                      ),
+                      child: Text(
+                        "Yes",
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 11.0, bottom: 20.0),
-                      child: Container(
-                        alignment: Alignment.topLeft,
-                        child: Text(
-                          "Are you sure you want to log out?",
-                          style: TextStyle(
-                            fontSize: 14.0,
-                          ),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        side: BorderSide(
+                          color: Colors.blue,
+                          width: 1.0,
                         ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        padding: EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 70.0, right: 70.0),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              padding: EdgeInsets.only(
-                                  top: 20.0,
-                                  bottom: 20.0,
-                                  left: 70.0,
-                                  right: 70.0),
-                              backgroundColor: Colors.blue,
-                            ),
-                            child: Text(
-                              "Yes",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              side: BorderSide(color: Colors.blue,
-                              width: 1.0,
-                              ),
-                              shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                              padding: EdgeInsets.only(
-                                  top: 20.0,
-                                  bottom: 20.0,
-                                  left: 70.0,
-                                  right: 70.0),
-                            ),
-                            child: Text("No"),
-                          ),
-                        ],
-                      ),
+                      child: Text("No"),
                     ),
                   ],
                 ),
               ),
-            ));
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -150,11 +148,11 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
             SizedBox(height: 16),
-             Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 DottedBorder(
-                  dashPattern: const [8,4],
+                  dashPattern: const [8, 4],
                   borderType: BorderType.RRect,
                   radius: Radius.circular(8.0),
                   color: Color.fromARGB(204, 169, 169, 169),
@@ -163,20 +161,27 @@ class _ProfilePageState extends State<ProfilePage> {
                       side: BorderSide(color: Colors.transparent),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        ),
+                      ),
                     ),
                     onPressed: () {
                       // Handle Edit Profile
-                      Navigator.pushNamed(context, '/editprofile');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfilePage(),
+                        ),
+                      );
                     },
-                    child: Text('✏️_ Edit Profile', style: TextStyle(
-                      color: Colors.blue,
-                    ),),
+                    child: Text(
+                      '✏️_ Edit Profile',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
                   ),
                 ),
-
                 DottedBorder(
-                  dashPattern: const [8,4],
+                  dashPattern: const [8, 4],
                   borderType: BorderType.RRect,
                   radius: Radius.circular(8.0),
                   color: Colors.blue,
@@ -185,19 +190,19 @@ class _ProfilePageState extends State<ProfilePage> {
                       side: BorderSide(color: Colors.transparent),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
-                        ),
+                      ),
                     ),
                     onPressed: () {
                       // Handle Parental Guide
-                      
                     },
-                    child: Text('✏️_ Parental Guide', 
-                    style: TextStyle(
-                      color: Color.fromARGB(238, 186, 185, 184),
-                    ),),
+                    child: Text(
+                      '✏️_ Parental Guide',
+                      style: TextStyle(
+                        color: Color.fromARGB(238, 186, 185, 184),
+                      ),
+                    ),
                   ),
                 ),
-                
               ],
             ),
             Padding(
