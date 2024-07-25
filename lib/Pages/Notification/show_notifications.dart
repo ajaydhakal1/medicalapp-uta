@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+class Notification {
+  final String title;
+  final String description;
+  final String time;
+
+  Notification({required this.title, required this.description, required this.time});
+}
+
 class ShowNotifications extends StatefulWidget {
   const ShowNotifications({super.key});
 
@@ -10,10 +18,69 @@ class ShowNotifications extends StatefulWidget {
 class _ShowNotificationsState extends State<ShowNotifications> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
+  final List<Notification> allNotifications = [
+    Notification(
+      title: 'Morning Medication Reminder',
+      description:
+          'Dear Kaylan, it’s time to take your medication now. Your prescribed medication is Lisinopril, with a dosage of 10 mg. Please take it with a full glass of water.',
+      time: '26 June, 12:45 pm',
+    ),
+    Notification(
+      title: 'Afternoon Medication Reminder',
+      description:
+          'Dear Kaylan, it’s time to take your medication now. Your prescribed medication is Lisinopril, with a dosage of 10 mg. Please take it with or without food.',
+      time: '26 June, 12:45 pm',
+    ),
+    Notification(
+      title: 'Missed Medication Alert',
+      description:
+          'Dear Kaylan, you missed a dose of your medication. Please take Lisinopril, with a dosage of 10 mg, as soon as possible unless it is almost time for your next dose.',
+      time: '26 June, 12:45 pm',
+    ),
+  ];
+
+  final List<Notification> generalNotifications = [
+    Notification(
+      title: 'General Notification 1',
+      description: 'This is a general notification.',
+      time: '26 June, 12:45 pm',
+    ),
+    Notification(
+      title: 'General Notification 2',
+      description: 'This is another general notification.',
+      time: '26 June, 1:00 pm',
+    ),
+  ];
+
+  final List<Notification> customNotifications = [
+    Notification(
+      title: 'Custom Notification 1',
+      description: 'This is a custom notification.',
+      time: '26 June, 2:00 pm',
+    ),
+  ];
+
+  final List<Notification> missedNotifications = [
+    Notification(
+      title: 'Missed Medication Alert',
+      description:
+          'Dear Kaylan, you missed a dose of your medication. Please take Lisinopril, with a dosage of 10 mg, as soon as possible unless it is almost time for your next dose.',
+      time: '26 June, 12:45 pm',
+    ),
+  ];
+
+  final List<Notification> weeklySummaryNotifications = [
+    Notification(
+      title: 'Weekly Summary',
+      description: 'This is your weekly summary.',
+      time: '26 June, 3:00 pm',
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 5, vsync: this);
   }
 
   @override
@@ -26,110 +93,98 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'Notification',
-          style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
+        title: const Text('Notification'),
+         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, "/home");
           },
+          icon: Icon(Icons.arrow_back_ios_new),
         ),
-      ),
-      body: Column(
-        children: [
-          TabBar(
-            controller: _tabController,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.black,
-            indicatorPadding: const EdgeInsets.only(left: -25.0, right: -25.0, top: 4.0, bottom: 4.0),
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.blue,
-              shape: BoxShape.rectangle,
-            ),
-            tabs: const [
-              Tab(text: 'All'),
-              Tab(text: 'General'),
-              Tab(text: 'Custom'),
-              Tab(text: 'Other'),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Expanded(
-            child: TabBarView(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 14.0, left: 23.0),
+            child: TabBar(
+              labelPadding: EdgeInsets.only(left: 40.0, right: 40.0),
               controller: _tabController,
-              children: [
-                _buildNotificationList(),
-                const Center(child: Text('General Notifications')),
-                const Center(child: Text('Custom Notifications')),
-                const Center(child: Text('Other Notifications')),
+              isScrollable: true,
+              labelColor: Colors.white,
+              tabAlignment: TabAlignment.start,
+              indicatorPadding: EdgeInsets.only(left: -30.0, right: -30.0, top: 3.0, bottom: 3.0),
+              indicator: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: Colors.blue,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              tabs: const [
+                Tab(text: 'All'),
+                Tab(text: 'General'),
+                Tab(text: 'Custom'),
+                Tab(text: 'Missed'),
+                Tab(text: 'Weekly Summary'),
               ],
             ),
           ),
+        ),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildNotificationList(allNotifications),
+          _buildNotificationList(generalNotifications),
+          _buildNotificationList(customNotifications),
+          _buildNotificationList(missedNotifications),
+          _buildNotificationList(weeklySummaryNotifications),
         ],
       ),
     );
   }
 
-  Widget _buildNotificationList() {
-    return ListView(
+  Widget _buildNotificationList(List<Notification> notifications) {
+    return ListView.builder(
       padding: const EdgeInsets.all(16.0),
-      children: [
-        _buildNotificationCard(
-          'Morning Medication reminder',
-          'Dear Kaylan,\nIt\'s time to take your medication now. Your prescribed medication is Lisinopril, with a dosage of 10 mg. Please take it with a full glass of water.',
-          '26 june, 12:45 pm',
-        ),
-        _buildNotificationCard(
-          'Afternoon Medication Reminder',
-          'Dear Kaylan,\nIt\'s time to take your medication now. Your prescribed medication is Lisinopril, with a dosage of 10 mg. Please take it with or without food.',
-          '26 june, 12:45 pm',
-        ),
-        _buildNotificationCard(
-          'Missed Medication Alert',
-          'Dear Kaylan,\nYou missed a dose of your medication. Please take Lisinopril, with a dosage of 10 mg, as soon as possible unless it is almost time for your next dose.',
-          '26 june, 12:45 pm',
-        ),
-      ],
+      itemCount: notifications.length,
+      itemBuilder: (context, index) {
+        final notification = notifications[index];
+        return _buildNotificationCard(
+          title: notification.title,
+          description: notification.description,
+          time: notification.time,
+        );
+      },
     );
   }
 
-  Widget _buildNotificationCard(String title, String content, String time) {
+  Widget _buildNotificationCard({required String title, required String description, required String time}) {
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      margin: const EdgeInsets.only(bottom: 16.0),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                const Icon(Icons.notifications, color: Colors.blue),
-                const SizedBox(width: 8),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
             Text(
-              content,
-              style: const TextStyle(fontSize: 14, color: Colors.black54),
+              title,
+              style: const TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 8.0),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 14.0,
+                color: Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 8.0),
             Text(
               time,
-              style: const TextStyle(fontSize: 12, color: Colors.black54),
+              style: const TextStyle(
+                fontSize: 12.0,
+                color: Colors.black38,
+              ),
             ),
           ],
         ),

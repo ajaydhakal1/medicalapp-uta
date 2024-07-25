@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 class NotificationSettings extends StatefulWidget {
+  const NotificationSettings({super.key});
+
   @override
   _NotificationSettingsState createState() => _NotificationSettingsState();
 }
@@ -44,16 +46,16 @@ class _NotificationSettingsState extends State<NotificationSettings> {
                 ),
                 SettingsTile(
                   title: const Text('Email notification'),
-                  leading: Icon(Icons.email),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.email),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onPressed: (BuildContext context) {
                     // Navigate to Email notification settings
                   },
                 ),
                 SettingsTile(
                   title: const Text('Messages'),
-                  leading: Icon(Icons.message),
-                  trailing: Icon(Icons.arrow_forward_ios),
+                  leading: const Icon(Icons.message),
+                  trailing: const Icon(Icons.arrow_forward_ios),
                   onPressed: (BuildContext context) {
                     // Navigate to Messages settings
                   },

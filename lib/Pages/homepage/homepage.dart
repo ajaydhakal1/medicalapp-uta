@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:profile_page/Pages/profile/profile.dart';
-import 'package:profile_page/utils/dialog_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,11 +33,11 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return _buildHomePage();
       case 1:
-        return Center(child: Text('Search Page'));
+        return const Center(child: Text('Search Page'));
       case 2:
-        return Center(child: Text('Medication Page'));
+        return const Center(child: Text('Medication Page'));
       case 3:
-        return ProfilePage();
+        return const ProfilePage();
       default:
         return _buildHomePage();
     }

@@ -23,6 +23,86 @@ class _ChangePasswordState extends State<ChangePassword> {
     });
   }
 
+  void _showResetPasswordDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: AlertDialog(
+            title: const Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Please choose how you want to reset your password',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Color.fromARGB(255, 133, 133, 133),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.only(
+                        top: 20.0, bottom: 20.0, right: 40.0, left: 40.0),
+                    side: const BorderSide(color: Colors.blue),
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    // Implement your reset via email logic here
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Via Email',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.only(
+                        top: 20.0, bottom: 20.0, right: 40.0, left: 40.0),
+                    side: const BorderSide(color: Colors.blue),
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    // Implement your reset via phone logic here
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Via Phone',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Color.fromARGB(255, 104, 104, 104),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +148,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         Padding(
           padding: const EdgeInsets.only(top: 40.0),
           child: TextButton(
-            onPressed: () {},
+            onPressed: _showResetPasswordDialog,
             child: const Text(
               "Forgot your password?",
               style: TextStyle(
@@ -149,7 +229,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           onPressed: _onContinue,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
-            minimumSize: Size(double.infinity, 50),
+            minimumSize: const Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -164,9 +244,10 @@ class _ChangePasswordState extends State<ChangePassword> {
   }
 
   Widget _buildUpdatedMessagePage() {
-    return Center(
+    return const Center(
       child: Column(
-        children: const [
+        mainAxisSize: MainAxisSize.min,
+        children: [
           Text(
             'Your password has been updated!',
             style: TextStyle(fontSize: 20, color: Colors.black),

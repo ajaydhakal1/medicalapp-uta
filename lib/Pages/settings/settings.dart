@@ -71,15 +71,6 @@ class Settings extends StatelessWidget {
                 Navigator.pushNamed(context, '/support_and_help');
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              trailing: const Icon(Icons.arrow_forward_ios_sharp),
-              title: const Text("Log out"),
-              onTap: (){
-                //handle logout
-                
-              },
-            ),
           ],
         ),
       ),

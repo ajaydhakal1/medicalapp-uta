@@ -72,7 +72,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   },
                   child: Text(
                     isEditing ? 'Save' : '✏️_ Edit Profile',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.blue,
                     ),
                   ),
