@@ -12,10 +12,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  int _selectedTab = 0; // 0: Time, 1: Medication, 2: All
 
   void _onTabSelected(int index) {
     setState(() {
       _selectedIndex = index;
+    });
+  }
+
+  void _onSubTabSelected(int index) {
+    setState(() {
+      _selectedTab = index;
     });
   }
 
@@ -37,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return const Center(child: Text('Medication Page'));
       case 3:
-        return const ProfilePage();
+        return ProfilePage();
       default:
         return _buildHomePage();
     }
@@ -90,7 +97,8 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       '${10 + index}',
-                      style: const TextStyle(fontSize: 18, color: Colors.black54),
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.black54),
                     ),
                     const SizedBox(height: 8),
                     if (index == 2)
@@ -105,40 +113,70 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 16),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text('Time',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black)),
-              Text('Medication',
-                  style: TextStyle(fontSize: 16, color: Colors.black54)),
-              Text('All',
-                  style: TextStyle(fontSize: 16, color: Colors.black54)),
+              _buildSubTabItem('Time', 0),
+              _buildSubTabItem('Medication', 1),
+              _buildSubTabItem('All', 2),
             ],
           ),
           const SizedBox(height: 16),
           Expanded(
             child: ListView(
-              children: [
-                _buildTimeSlot('07:00 AM', [
-                  _buildMedicationCard('Paracetamol', '200mg', true),
-                  _buildMedicationCard('Paracetamol', '200mg', true),
-                  _buildMedicationCard('Paracetamol', '200mg', false),
-                ]),
-                _buildTimeSlot('07:00 AM', [
-                  _buildMedicationCard('Paracetamol', '200mg', true),
-                  _buildMedicationCard('Paracetamol', '200mg', true),
-                  _buildMedicationCard('Paracetamol', '200mg', false),
-                ]),
-              ],
+              children: _buildSubTabContent(),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildSubTabItem(String label, int index) {
+    return GestureDetector(
+      onTap: () => _onSubTabSelected(index),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: _selectedTab == index
+              ? Theme.of(context).colorScheme.primary
+              : Colors.black54,
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildSubTabContent() {
+    switch (_selectedTab) {
+      case 0:
+        return [
+          _buildTimeSlot('07:00 AM', [
+            _buildMedicationCard('Paracetamol', '200mg', true),
+            _buildMedicationCard('Paracetamol', '200mg', true),
+            _buildMedicationCard('Paracetamol', '200mg', false),
+          ]),
+          _buildTimeSlot('07:00 AM', [
+            _buildMedicationCard('Paracetamol', '200mg', true),
+            _buildMedicationCard('Paracetamol', '200mg', true),
+            _buildMedicationCard('Paracetamol', '200mg', false),
+          ]),
+        ];
+      case 1:
+        return [
+          _buildMedicationCard('Ibuprofen', '400mg', true),
+          _buildMedicationCard('Ibuprofen', '400mg', false),
+        ];
+      case 2:
+        return [
+          _buildMedicationCard('Paracetamol', '200mg', true),
+          _buildMedicationCard('Ibuprofen', '400mg', true),
+          _buildMedicationCard('Aspirin', '100mg', false),
+        ];
+      default:
+        return [];
+    }
   }
 
   Widget _buildTimeSlot(String time, List<Widget> medications) {
@@ -197,7 +235,8 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         body: _buildSelectedPage(),
         floatingActionButton: FloatingActionButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
           backgroundColor: Colors.blue,
           onPressed: addMedicine,
           child: const Icon(
@@ -215,9 +254,12 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               _buildBottomNavigationBarItem(Icons.home, "Home", 0),
-              _buildBottomNavigationBarItem(LineAwesomeIcons.search_solid, "Search", 1),
-              _buildBottomNavigationBarItem(LineAwesomeIcons.clinic_medical_solid, "Medication", 2),
-              _buildBottomNavigationBarItem(LineAwesomeIcons.user_circle_solid, "Profile", 3),
+              _buildBottomNavigationBarItem(
+                  LineAwesomeIcons.search_solid, "Search", 1),
+              _buildBottomNavigationBarItem(
+                  LineAwesomeIcons.clinic_medical_solid, "Medication", 2),
+              _buildBottomNavigationBarItem(
+                  LineAwesomeIcons.user_circle_solid, "Profile", 3),
             ],
           ),
         ),
@@ -230,11 +272,13 @@ class _HomePageState extends State<HomePage> {
       children: [
         IconButton(
           onPressed: () => _onTabSelected(index),
-          icon: Icon(icon, color: _selectedIndex == index ? Colors.blue : Colors.black54),
+          icon: Icon(icon,
+              color: _selectedIndex == index ? Colors.blue : Colors.black54),
         ),
         Text(
           label,
-          style: TextStyle(color: _selectedIndex == index ? Colors.blue : Colors.black54),
+          style: TextStyle(
+              color: _selectedIndex == index ? Colors.blue : Colors.black54),
         ),
       ],
     );
@@ -249,7 +293,8 @@ class DialogBox extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 100.0),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 300), // Give it a maximum width
+        constraints:
+            const BoxConstraints(maxWidth: 300), // Give it a maximum width
         child: AlertDialog(
           alignment: Alignment.bottomCenter,
           backgroundColor: Colors.white,
@@ -267,10 +312,10 @@ class DialogBox extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                         const Color.fromARGB(235, 248, 252, 255),
                       ),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50.0),
                       )),
                     ),

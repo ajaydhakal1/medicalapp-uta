@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:profile_page/Controller/notification_controller.dart';
 import 'package:profile_page/Pages/Notification/show_notifications.dart';
 import 'package:profile_page/Pages/account_management/account%20information/account_information.dart';
 import 'package:profile_page/Pages/account_management/account%20information/change_birthday.dart';
@@ -33,9 +35,42 @@ import 'package:profile_page/Pages/settings/support_and_help/make_suggestion.dar
 import 'package:profile_page/Pages/settings/support_and_help/report_problem.dart';
 import 'package:profile_page/Pages/settings/support_and_help/support_and_help.dart';
 import 'package:profile_page/theme/theme.dart';
+import 'package:profile_page/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        playSound: true,
+        defaultRingtoneType: DefaultRingtoneType.Notification,
+        enableVibration: true,
+        enableLights: true,
+        channelShowBadge: true,
+        channelGroupKey: "Basic_Channel_Group",
+        channelKey: 'basic_channel',
+        channelName: 'Basic Channel',
+        channelDescription: 'Basic channel for test',
+      )
+    ],
+    channelGroups: [
+      NotificationChannelGroup(
+          channelGroupKey: "Basic_Channel_Group",
+          channelGroupName: "Basic Group"),
+    ],
+  );
+
+  bool isNotificationsAllowed =
+      await AwesomeNotifications().isNotificationAllowed();
+  if (!isNotificationsAllowed) {
+    AwesomeNotifications().requestPermissionToSendNotifications();
+  }
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => ThemeProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -45,17 +80,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final ThemeManager _themeManager = ThemeManager();
+  final ThemeProvider _themeProvider = ThemeProvider();
 
   @override
   void dispose() {
-    _themeManager.removeListener(themeListener);
+    _themeProvider.removeListener(themeListener);
     super.dispose();
   }
 
   @override
   void initState() {
-    _themeManager.addListener(themeListener);
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod: NotificationController.onNotificationCreateMethod,
+        onDismissActionReceivedMethod: NotificationController.onDismissActionReceiveMethod,
+        );
+    _themeProvider.addListener(themeListener);
     super.initState();
   }
 
@@ -72,17 +112,11 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: "Cure Me",
       home: const HomePage(),
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          fontFamily: 'fonts/Poppins',
-          scaffoldBackgroundColor: Colors.white,
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
-          canvasColor: Colors.white),
-      darkTheme: darkTheme,
-      themeMode: _themeManager.themeMode,
+      theme: Provider.of<ThemeProvider>(context).themeData,
+      darkTheme: darkMode,
       routes: {
         '/home': (context) => const HomePage(),
-        '/profile': (context) => const ProfilePage(),
+        '/profile': (context) => ProfilePage(),
         '/editprofile': (context) => const EditProfilePage(),
         '/medical_details': (context) => const MedicalDetais(),
         '/medical_information': (context) => const MedicalInformation(),

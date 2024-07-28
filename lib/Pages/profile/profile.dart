@@ -2,21 +2,22 @@
 
 // ignore_for_file: prefer_const_constructors
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:profile_page/Pages/profile/profile_update.dart';
-import 'package:profile_page/theme/theme.dart';
+import 'package:profile_page/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final ThemeManager _themeManager = ThemeManager();
   bool isDarkMode = false;
 
   Future<void> _displayBottomSheet(BuildContext context) async {
@@ -249,10 +250,10 @@ class _ProfilePageState extends State<ProfilePage> {
               leading: Icon(Icons.brightness_6),
               title: Text('Light/dark mode'),
               trailing: Switch(
-                value: _themeManager.themeMode == ThemeMode.dark,
+                value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
                 onChanged: (value) {
                   setState(() {
-                    _themeManager.toggleTheme(value);
+                    Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
                   });
                 },
               ),
@@ -262,6 +263,29 @@ class _ProfilePageState extends State<ProfilePage> {
               trailing: Icon(Icons.arrow_forward_ios_sharp),
               title: Text('Log Out'),
               onTap: () => _displayBottomSheet(context),
+            ),
+            ListTile(
+              leading: ElevatedButton(
+                onPressed: () async {
+                  AwesomeNotifications().createNotification(
+                    schedule: NotificationInterval(
+                        interval: 3,
+                        timeZone: await AwesomeNotifications()
+                            .getLocalTimeZoneIdentifier()),
+                    content: NotificationContent(
+                        id: 1,
+                        groupKey: "Basic_Channel_Group",
+                        category: NotificationCategory.Reminder,
+                        displayOnForeground: true,
+                        displayOnBackground: true,
+                        wakeUpScreen: true,
+                        channelKey: "basic_channel",
+                        title: "Hello World!",
+                        body: "Hey, this is notification test"),
+                  );
+                },
+                child: Text("Get Notification"),
+              ),
             ),
           ],
         ),

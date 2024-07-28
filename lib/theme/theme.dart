@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-ThemeData lightTheme = ThemeData(
+ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
+  colorScheme: const ColorScheme.light(
+    background: Colors.white,
+    primary: Color.fromARGB(137, 0, 0, 0),
+    secondary: Colors.blue,
+  )
 );
 
-ThemeData darkTheme = ThemeData(
+ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
+  colorScheme: ColorScheme.dark(
+    background: 
+    Colors.grey.shade900,
+    primary: Colors.white,
+    secondary: Colors.blue,
+  )
 );
-
-class ThemeManager with ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.light;
-
-   get themeMode => _themeMode;
-
-  void toggleTheme(bool isDarkMode) {
-    _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
-    notifyListeners();
-  }
-}

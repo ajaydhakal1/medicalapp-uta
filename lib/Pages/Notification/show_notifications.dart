@@ -116,7 +116,7 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              tabs: const [
+              tabs:const [
                 Tab(text: 'All'),
                 Tab(text: 'General'),
                 Tab(text: 'Custom'),
