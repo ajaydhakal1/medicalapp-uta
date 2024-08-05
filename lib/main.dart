@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:profile_page/Controller/notification_controller.dart';
 import 'package:profile_page/Pages/Notification/show_notifications.dart';
@@ -39,6 +40,8 @@ import 'package:profile_page/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await AwesomeNotifications().initialize(
     null,
     [
@@ -48,29 +51,36 @@ void main() async {
         enableVibration: true,
         enableLights: true,
         channelShowBadge: true,
-        channelGroupKey: "Basic_Channel_Group",
-        channelKey: 'basic_channel',
-        channelName: 'Basic Channel',
-        channelDescription: 'Basic channel for test',
+        channelGroupKey: "Reminders",
+        channelKey: 'med_reminder',
+        channelName: 'Medicine Reminder',
+        channelDescription: 'Never miss any medicine',
       )
     ],
     channelGroups: [
       NotificationChannelGroup(
-          channelGroupKey: "Basic_Channel_Group",
-          channelGroupName: "Basic Group"),
+        channelGroupKey: "Reminders",
+        channelGroupName: "Reminders",
+      ),
     ],
   );
 
-  bool isNotificationsAllowed =
-      await AwesomeNotifications().isNotificationAllowed();
+  bool isNotificationsAllowed = await AwesomeNotifications().isNotificationAllowed();
   if (!isNotificationsAllowed) {
     AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    child: const MyApp(),
-  ));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('en', 'US'), Locale('fr', 'FR'), Locale('hi', 'IN'), Locale('ne', 'NP'), Locale('es', 'ES'), Locale('ja', 'JP'), Locale('ko', 'KR'), Locale('pt', 'PT')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+      child: ChangeNotifierProvider(
+        create: (context) => ThemeProvider(),
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -91,10 +101,12 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     AwesomeNotifications().setListeners(
-        onActionReceivedMethod: NotificationController.onActionReceivedMethod,
-        onNotificationCreatedMethod: NotificationController.onNotificationCreateMethod,
-        onDismissActionReceivedMethod: NotificationController.onDismissActionReceiveMethod,
-        );
+      onActionReceivedMethod: NotificationController.onActionReceivedMethod,
+      onNotificationCreatedMethod:
+          NotificationController.onNotificationCreateMethod,
+      onDismissActionReceivedMethod:
+          NotificationController.onDismissActionReceiveMethod,
+    );
     _themeProvider.addListener(themeListener);
     super.initState();
   }
@@ -110,13 +122,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       title: "Cure Me",
       home: const HomePage(),
-      theme: Provider.of<ThemeProvider>(context).themeData,
+      theme: ThemeData(),
       darkTheme: darkMode,
       routes: {
         '/home': (context) => const HomePage(),
-        '/profile': (context) => ProfilePage(),
+        '/profile': (context) => const ProfilePage(),
         '/editprofile': (context) => const EditProfilePage(),
         '/medical_details': (context) => const MedicalDetais(),
         '/medical_information': (context) => const MedicalInformation(),
@@ -139,7 +154,7 @@ class _MyAppState extends State<MyApp> {
         '/privacy_security_mgmt': (context) => const PrivacySecurityMgmt(),
         '/device_mgmt': (context) => const DeviceManagement(),
 
-        //Account Informmation Routes
+        //Account Information Routes
         '/changename': (context) => const ChangeName(),
         '/changeusername': (context) => const ChangeUsername(),
         '/changebirthday': (context) => const ChangeBirthday(),

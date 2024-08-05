@@ -98,19 +98,19 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
           onPressed: () {
             Navigator.pushNamed(context, "/home");
           },
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(50.0),
           child: Padding(
             padding: const EdgeInsets.only(top: 14.0, left: 23.0),
             child: TabBar(
-              labelPadding: EdgeInsets.only(left: 40.0, right: 40.0),
+              labelPadding: const EdgeInsets.only(left: 40.0, right: 40.0),
               controller: _tabController,
               isScrollable: true,
               labelColor: Colors.white,
               tabAlignment: TabAlignment.start,
-              indicatorPadding: EdgeInsets.only(left: -30.0, right: -30.0, top: 3.0, bottom: 3.0),
+              indicatorPadding: const EdgeInsets.only(left: -30.0, right: -30.0, top: 3.0, bottom: 3.0),
               indicator: BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: Colors.blue,

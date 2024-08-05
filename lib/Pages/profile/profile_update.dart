@@ -43,50 +43,52 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const CircleAvatar(
-              radius: 40,
-              backgroundImage: AssetImage(
-                  'assets/images/avatar.png'), // Add your avatar image
-            ),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
-              child: DottedBorder(
-                dashPattern: const [8, 4],
-                borderType: BorderType.RRect,
-                radius: const Radius.circular(8.0),
-                color: const Color.fromARGB(204, 169, 169, 169),
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Colors.transparent),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CircleAvatar(
+                radius: 40,
+                backgroundImage: AssetImage(
+                    'assets/images/avatar.png'), // Add your avatar image
+              ),
+              const SizedBox(height: 8),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 10.0),
+                child: DottedBorder(
+                  dashPattern: const [8, 4],
+                  borderType: BorderType.RRect,
+                  radius: const Radius.circular(8.0),
+                  color: const Color.fromARGB(204, 169, 169, 169),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.transparent),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isEditing = !isEditing;
-                    });
-                  },
-                  child: Text(
-                    isEditing ? 'Save' : '✏️_ Edit Profile',
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    onPressed: () {
+                      setState(() {
+                        isEditing = !isEditing;
+                      });
+                    },
+                    child: Text(
+                      isEditing ? 'Save' : '✏️_ Edit Profile',
+                      style: const TextStyle(
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            buildProfileDetailRow('Name', nameController),
-            buildProfileDetailRow('Age', ageController),
-            buildProfileDetailRow('Date of birth', dobController),
-            buildProfileDetailRow('Gender', genderController),
-            buildProfileDetailRow('Email', emailController),
-            buildProfileDetailRow('Phone no', phoneController),
-          ],
+              const SizedBox(height: 16),
+              buildProfileDetailRow('Name', nameController),
+              buildProfileDetailRow('Age', ageController),
+              buildProfileDetailRow('Date of birth', dobController),
+              buildProfileDetailRow('Gender', genderController),
+              buildProfileDetailRow('Email', emailController),
+              buildProfileDetailRow('Phone no', phoneController),
+            ],
+          ),
         ),
       ),
     );

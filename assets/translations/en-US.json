@@ -1,0 +1,6 @@
+{
+  "language_preference": "Language Preference",
+  "add_language": "Add Language",
+  "suggested_by_app": "Suggested by app",
+  "default_language_message": "The language at the top of the list will be used by default. If an app doesn’t support your default languages, the next language in the list will be used instead."
+}

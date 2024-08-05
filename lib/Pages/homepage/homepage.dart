@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       case 2:
         return const Center(child: Text('Medication Page'));
       case 3:
-        return ProfilePage();
+        return const ProfilePage();
       default:
         return _buildHomePage();
     }
