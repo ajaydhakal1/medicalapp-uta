@@ -17,6 +17,7 @@ import 'package:profile_page/Pages/account_management/device_management/device_m
 import 'package:profile_page/Pages/account_management/medical_information_mgmt.dart';
 import 'package:profile_page/Pages/account_management/privacy_security_mgmt.dart';
 import 'package:profile_page/Pages/homepage/homepage.dart';
+import 'package:profile_page/Pages/login/login_page.dart';
 import 'package:profile_page/Pages/profile/adherence.dart';
 import 'package:profile_page/Pages/profile/medical_detais.dart';
 import 'package:profile_page/Pages/profile/medical_information.dart';
@@ -65,14 +66,24 @@ void main() async {
     ],
   );
 
-  bool isNotificationsAllowed = await AwesomeNotifications().isNotificationAllowed();
+  bool isNotificationsAllowed =
+      await AwesomeNotifications().isNotificationAllowed();
   if (!isNotificationsAllowed) {
     AwesomeNotifications().requestPermissionToSendNotifications();
   }
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en', 'US'), Locale('fr', 'FR'), Locale('hi', 'IN'), Locale('ne', 'NP'), Locale('es', 'ES'), Locale('ja', 'JP'), Locale('ko', 'KR'), Locale('pt', 'PT')],
+      supportedLocales: const [
+        Locale('en', 'US'),
+        Locale('fr', 'FR'),
+        Locale('hi', 'IN'),
+        Locale('ne', 'NP'),
+        Locale('es', 'ES'),
+        Locale('ja', 'JP'),
+        Locale('ko', 'KR'),
+        Locale('pt', 'PT')
+      ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en', 'US'),
       child: ChangeNotifierProvider(
@@ -117,62 +128,61 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      title: "Cure Me",
-      home: const HomePage(),
-      theme: ThemeData(),
-      darkTheme: darkMode,
-      routes: {
-        '/home': (context) => const HomePage(),
-        '/profile': (context) => const ProfilePage(),
-        '/editprofile': (context) => const EditProfilePage(),
-        '/medical_details': (context) => const MedicalDetais(),
-        '/medical_information': (context) => const MedicalInformation(),
-        '/adherence': (context) => const Adherence(),
-        '/settings': (context) => const Settings(),
-
-        //Settings Routes
-        '/data_privacy_settings': (context) => const DataPrivacySettings(),
-        '/language_pref': (context) => const LanguagePreferences(),
-        '/account_mgmt': (context) => const AccountManagement(),
-        '/notification': (context) => const NotificationSettings(),
-
-        //Data and Privacy routes
-        '/data_sharing': (context) => const DataSharing(),
-        '/privacy_settings': (context) => const PrivacySettings(),
-
-        //Account Management Routes
-        '/account_info': (context) => const AccountInformation(),
-        '/medical_info': (context) => const MedicalInformationMgmt(),
-        '/privacy_security_mgmt': (context) => const PrivacySecurityMgmt(),
-        '/device_mgmt': (context) => const DeviceManagement(),
-
-        //Account Information Routes
-        '/changename': (context) => const ChangeName(),
-        '/changeusername': (context) => const ChangeUsername(),
-        '/changebirthday': (context) => const ChangeBirthday(),
-        '/changenumber': (context) => const ChangeNumber(),
-        '/changegmail': (context) => const ChangeGmail(),
-        '/changepassword': (context) => const ChangePassword(),
-        '/two_factor_auth': (context) => const TwoFactorAuth(),
-
-        //Settings => Support and Help
-        '/support_and_help': (context) => const SupportAndHelp(),
-        '/report_problem': (context) => const ReportProblem(),
-        '/helpcenter': (context) => const HelpCenter(),
-        '/feedback': (context) => const UserFeedback(),
-        '/bug_report': (context) => const BugReport(),
-        '/make_suggestion': (context) => const MakeSuggestion(),
-
-        //Notifications
-        '/show_notifications': (context) => const ShowNotifications(),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
+          title: "Cure Me",
+          home: const LoginPage(),
+          theme: lightMode,
+          darkTheme: darkMode,
+          themeMode: themeProvider.themeMode, // Use themeMode
+          routes: {
+            '/home': (context) => const HomePage(),
+            '/profile': (context) => const ProfilePage(),
+            '/login': (context) => const LoginPage(),
+            '/editprofile': (context) => const EditProfilePage(),
+            '/medical_details': (context) => const MedicalDetais(),
+            '/medical_information': (context) => const MedicalInformation(),
+            '/adherence': (context) => const Adherence(),
+            '/settings': (context) => const Settings(),
+            //Settings Routes
+            '/data_privacy_settings': (context) => const DataPrivacySettings(),
+            '/language_pref': (context) => const LanguagePreferences(),
+            '/account_mgmt': (context) => const AccountManagement(),
+            '/notification': (context) => const NotificationSettings(),
+            //Data and Privacy routes
+            '/data_sharing': (context) => const DataSharing(),
+            '/privacy_settings': (context) => const PrivacySettings(),
+            //Account Management Routes
+            '/account_info': (context) => const AccountInformation(),
+            '/medical_info': (context) => const MedicalInformationMgmt(),
+            '/privacy_security_mgmt': (context) => const PrivacySecurityMgmt(),
+            '/device_mgmt': (context) => const DeviceManagement(),
+            //Account Information Routes
+            '/changename': (context) => const ChangeName(),
+            '/changeusername': (context) => const ChangeUsername(),
+            '/changebirthday': (context) => const ChangeBirthday(),
+            '/changenumber': (context) => const ChangeNumber(),
+            '/changegmail': (context) => const ChangeGmail(),
+            '/changepassword': (context) => const ChangePassword(),
+            '/two_factor_auth': (context) => const TwoFactorAuth(),
+            //Settings => Support and Help
+            '/support_and_help': (context) => const SupportAndHelp(),
+            '/report_problem': (context) => const ReportProblem(),
+            '/helpcenter': (context) => const HelpCenter(),
+            '/feedback': (context) => const UserFeedback(),
+            '/bug_report': (context) => const BugReport(),
+            '/make_suggestion': (context) => const MakeSuggestion(),
+            //Notifications
+            '/show_notifications': (context) => const ShowNotifications(),
+          },
+        );
       },
     );
   }

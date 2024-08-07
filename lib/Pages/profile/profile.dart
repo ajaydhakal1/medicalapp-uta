@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.pushNamed(context, '/login');
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -141,8 +141,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Text(
                         'Ajay Dhakal',
-                        style:
-                            TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text('Shibuya, Japan'),
                     ],
@@ -248,17 +248,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.brightness_6),
-                title: Text('Light/dark mode'),
-                trailing: Switch(
-                  value: Provider.of<ThemeProvider>(context, listen: false).isDarkMode,
-                  onChanged: (value) {
-                    setState(() {
-                      Provider.of<ThemeProvider>(context, listen: false).toggleTheme();
-                    });
-                  },
-                ),
-              ),
+                  leading: Icon(Icons.brightness_6),
+                  title: Text('Light/dark mode'),
+                  trailing: Switch(
+                    value: Provider.of<ThemeProvider>(context).isDarkMode,
+                    onChanged: (value) {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .toggleTheme();
+                    },
+                  )),
               ListTile(
                 leading: Icon(Icons.logout),
                 trailing: Icon(Icons.arrow_forward_ios_sharp),
@@ -266,24 +264,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 onTap: () => _displayBottomSheet(context),
               ),
               ListTile(
-                leading: ElevatedButton(
-                  onPressed: () async {
-                    AwesomeNotifications().createNotification(
-                      content: NotificationContent(
-                          id: 1,
-                          groupKey: "Reminders",
-                          category: NotificationCategory.Reminder,
-                          displayOnForeground: true,
-                          displayOnBackground: true,
-                          wakeUpScreen: true,
-                          channelKey: "med_reminder",
-                          title: "Hello World!",
-                          body: "Hey, this is notification test"),
-                    );
-                  },
-                  child: Text("Get Notification"),
-                )
-              ),
+                  leading: ElevatedButton(
+                onPressed: () async {
+                  AwesomeNotifications().createNotification(
+                    content: NotificationContent(
+                        id: 1,
+                        groupKey: "Reminders",
+                        category: NotificationCategory.Reminder,
+                        displayOnForeground: true,
+                        displayOnBackground: true,
+                        wakeUpScreen: true,
+                        channelKey: "med_reminder",
+                        title: "Hello World!",
+                        body: "Hey, this is notification test"),
+                  );
+                },
+                child: Text("Get Notification"),
+              )),
             ],
           ),
         ),

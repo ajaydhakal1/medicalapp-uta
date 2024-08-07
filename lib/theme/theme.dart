@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
-ThemeData lightMode = ThemeData(
+// Define your light and dark theme data
+final ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
-  colorScheme: const ColorScheme.light(
-    surface: Colors.white,
-    primary: Colors.black,
-    secondary: Colors.blue,
-  )
+  primaryColor: Colors.blue,
+  // Add other theme properties as needed
 );
 
-ThemeData darkMode = ThemeData(
+final ThemeData darkMode = ThemeData(
   brightness: Brightness.dark,
-  colorScheme: ColorScheme.dark(
-    surface: 
-    Colors.grey.shade900,
-    primary: Colors.white,
-    secondary: Colors.blue,
-  )
+  primaryColor: Colors.blue,
+  // Add other theme properties as needed
 );

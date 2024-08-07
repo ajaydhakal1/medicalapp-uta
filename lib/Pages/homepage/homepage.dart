@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:profile_page/Pages/profile/profile.dart';
+import 'package:profile_page/utils/dialog_box.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -26,14 +27,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void addMedicine() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return const DialogBox();
-      },
-    );
-  }
+void addMedicine() {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return DialogBox(); // Ensure this is correctly returning a widget
+    },
+  );
+}
+
 
   Widget _buildSelectedPage() {
     switch (_selectedIndex) {
@@ -281,58 +283,6 @@ class _HomePageState extends State<HomePage> {
               color: _selectedIndex == index ? Colors.blue : Colors.black54),
         ),
       ],
-    );
-  }
-}
-
-class DialogBox extends StatelessWidget {
-  const DialogBox({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 100.0),
-      child: ConstrainedBox(
-        constraints:
-            const BoxConstraints(maxWidth: 300), // Give it a maximum width
-        child: AlertDialog(
-          alignment: Alignment.bottomCenter,
-          backgroundColor: Colors.white,
-          content: SizedBox(
-            height: 200,
-            child: GridView.builder(
-              shrinkWrap: true,
-              itemCount: 5,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-              ),
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.all(4.0), // Added margin for spacing
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                        const Color.fromARGB(235, 248, 252, 255),
-                      ),
-                      shape: WidgetStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50.0),
-                      )),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.0),
-                      child: Icon(
-                        Icons.home,
-                        color: Color.fromARGB(255, 51, 180, 255),
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
