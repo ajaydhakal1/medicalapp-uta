@@ -49,6 +49,8 @@ dependencies:
   easy_localization: ^3.0.7
   shared_preferences: ^2.3.1
   flutter_svg:
+  intl_phone_number_input: ^0.7.4
+  flutter_timer_countdown: ^1.0.7
 
   
 flutter_icons:

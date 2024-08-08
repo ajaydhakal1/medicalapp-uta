@@ -31,7 +31,7 @@ void addMedicine() {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return DialogBox(); // Ensure this is correctly returning a widget
+      return const DialogBox(); // Ensure this is correctly returning a widget
     },
   );
 }

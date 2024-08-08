@@ -138,14 +138,14 @@ class _MyAppState extends State<MyApp> {
           supportedLocales: context.supportedLocales,
           locale: context.locale,
           title: "Cure Me",
-          home: const LoginPage(),
+          home: LoginPage(),
           theme: lightMode,
           darkTheme: darkMode,
           themeMode: themeProvider.themeMode, // Use themeMode
           routes: {
             '/home': (context) => const HomePage(),
             '/profile': (context) => const ProfilePage(),
-            '/login': (context) => const LoginPage(),
+            '/login': (context) => LoginPage(),
             '/editprofile': (context) => const EditProfilePage(),
             '/medical_details': (context) => const MedicalDetais(),
             '/medical_information': (context) => const MedicalInformation(),
