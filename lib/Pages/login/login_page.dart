@@ -192,9 +192,11 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 16),
           TextButton(
             onPressed: () {
-              setState(() {
-                usePhoneNumber = true;
-              });
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PhoneNumberPage()),
+              );
             },
             child: const Center(
               child: Text(
@@ -224,88 +226,6 @@ class _LoginPageState extends State<LoginPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildOTPScreen(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new),
-        onPressed: (){
-          
-        }),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            const Text(
-              'Enter the code we sent to your mobile number.',
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter OTP',
-                contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              keyboardType: TextInputType.number,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 24),
-            TimerCountdown(
-              format: CountDownTimerFormat.secondsOnly,
-              endTime: DateTime.now().add(const Duration(seconds: 60)),
-              onEnd: () {
-                setState(() {
-                  // Allow resend button to be active after countdown
-                });
-              },
-              timeTextStyle: const TextStyle(
-                color: Colors.red,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              spacerWidth: 5,
-              enableDescriptions: false,
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                // Verify OTP action
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                minimumSize: const Size(double.infinity, 48),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-              ),
-              child: const Text(
-                'Verify',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                // Resend OTP action
-              },
-              child: const Text(
-                'Resend Code',
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
@@ -421,6 +341,108 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _buildOTPScreen(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () {
+            setState(() {
+              isOTPScreen =
+                  false; // Navigate back to the signup with number page
+            });
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            const Text(
+              'Enter the code we sent to your mobile number.',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+              ],
+            ),
+            const SizedBox(height: 24),
+            TimerCountdown(
+              format: CountDownTimerFormat.secondsOnly,
+              endTime: DateTime.now().add(const Duration(seconds: 60)),
+              onEnd: () {
+                setState(() {
+                  // Enable the resend button after countdown
+                });
+              },
+              timeTextStyle: const TextStyle(
+                color: Colors.red,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              spacerWidth: 5,
+              enableDescriptions: false,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                // Verify OTP action
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: const Text(
+                'Next',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                // Resend OTP action (only active after 60 seconds)
+              },
+              child: const Text(
+                'Resend Code',
+                style: TextStyle(color: Colors.grey), // Initially grey
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOTPBox(BuildContext context) {
+    return SizedBox(
+      width: 50,
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          counterText: '',
+        ),
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.number,
+        maxLength: 1,
+        showCursor: true,
+        style: const TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
   Widget _buildEmailInput() {
     return TextField(
       decoration: InputDecoration(
@@ -458,4 +480,224 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+}
+
+class PhoneNumberPage extends StatefulWidget {
+  const PhoneNumberPage({super.key});
+
+  @override
+  _PhoneNumberPageState createState() => _PhoneNumberPageState();
+}
+
+class _PhoneNumberPageState extends State<PhoneNumberPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(
+            right: 20.0, left: 20.0, bottom: 20.0, top: 13.0),
+        child: Column(
+          children: [
+            const Text(
+              'We will send you a one-time password to this number.',
+              style: TextStyle(fontSize: 17),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              alignment: Alignment.topLeft,
+              child: const Text(
+                'Enter Mobile Number',
+              ),
+            ),
+            const SizedBox(height: 16),
+            InternationalPhoneNumberInput(
+              onInputChanged: (PhoneNumber number) {
+                // Handle phone number input change
+              },
+              selectorConfig: const SelectorConfig(
+                selectorType: PhoneInputSelectorType.DIALOG,
+              ),
+              ignoreBlank: false,
+              autoValidateMode: AutovalidateMode.disabled,
+              selectorTextStyle: const TextStyle(color: Colors.black),
+              initialValue: PhoneNumber(isoCode: 'NP'),
+              textFieldController: TextEditingController(),
+              formatInput: false,
+              keyboardType: const TextInputType.numberWithOptions(
+                  signed: true, decimal: false),
+              inputDecoration: InputDecoration(
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const OtpPage()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: const Text(
+                'Next',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class OtpPage extends StatefulWidget {
+  const OtpPage({super.key});
+
+  @override
+  State<OtpPage> createState() => _OtpPageState();
+}
+
+class _OtpPageState extends State<OtpPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            const Text(
+              'Enter the code we sent to your mobile number.',
+              style: TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+                _buildOTPBox(context),
+              ],
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: TextButton(
+                    onPressed: () {
+                      // Resend OTP action (only active after 60 seconds)
+                    },
+                    child: const Text(
+                      'Resend Code',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(color: Colors.grey), // Initially grey
+                    ),
+                  ),
+                ),
+
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 5.0, left: 3.0),
+                    child: TimerCountdown(
+                      format: CountDownTimerFormat.secondsOnly,
+                      endTime: DateTime.now().add(const Duration(seconds: 60)),
+                      onEnd: () {
+                        setState(() {
+                          // Enable the resend button after countdown
+                        });
+                      },
+                      timeTextStyle: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      spacerWidth: 5,
+                      enableDescriptions: false,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () {
+                // Verify OTP action
+                _newPassword();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                minimumSize: const Size(double.infinity, 48),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: const Text(
+                'Verify',
+                style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildOTPBox(BuildContext context) {
+    return SizedBox(
+      width: 50,
+      child: TextField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          counterText: '',
+        ),
+        textAlign: TextAlign.center,
+        keyboardType: TextInputType.number,
+        maxLength: 1,
+        showCursor: true,
+        style: const TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  bool isPasswordScreen = false;
+
+    void _newPassword() {
+    setState(() {
+      isPasswordScreen = true;
+    });
+  }
+
+
 }
