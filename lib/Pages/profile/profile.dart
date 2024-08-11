@@ -248,15 +248,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               ListTile(
-                  leading: Icon(Icons.brightness_6),
-                  title: Text('Light/dark mode'),
-                  trailing: Switch(
-                    value: Provider.of<ThemeProvider>(context).isDarkMode,
-                    onChanged: (value) {
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .toggleTheme();
-                    },
-                  )),
+                leading: Icon(Icons.brightness_6),
+                title: Text('Light/dark mode'),
+                trailing: Switch(
+                  value: Provider.of<ThemeProvider>(context).isDarkMode,
+                  onChanged: (value) {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
+                  },
+                ),
+              ),
               ListTile(
                 leading: Icon(Icons.logout),
                 trailing: Icon(Icons.arrow_forward_ios_sharp),

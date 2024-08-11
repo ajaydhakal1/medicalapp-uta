@@ -67,7 +67,6 @@ void addMedicine() {
                   child: Text(
                     'Hi\nKylan Gentry',
                     style: TextStyle(
-                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -76,7 +75,7 @@ void addMedicine() {
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0, top: 20.0),
                   child: IconButton(
-                    icon: const Icon(Icons.notifications, color: Colors.blue),
+                    icon: const Icon(Icons.notifications),
                     iconSize: 36.0,
                     style: IconButton.styleFrom(
                       shape: const CircleBorder(),
@@ -100,7 +99,7 @@ void addMedicine() {
                     Text(
                       '${10 + index}',
                       style:
-                          const TextStyle(fontSize: 18, color: Colors.black54),
+                          const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 8),
                     if (index == 2)
@@ -134,21 +133,24 @@ void addMedicine() {
     );
   }
 
-  Widget _buildSubTabItem(String label, int index) {
-    return GestureDetector(
-      onTap: () => _onSubTabSelected(index),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-          color: _selectedTab == index
-              ? Theme.of(context).colorScheme.primary
-              : Colors.black54,
-        ),
+ Widget _buildSubTabItem(String label, int index) {
+  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+  final textColor = _selectedTab == index
+      ? Theme.of(context).colorScheme.primary
+      : (isDarkMode ? Colors.white : Colors.black);
+
+  return GestureDetector(
+    onTap: () => _onSubTabSelected(index),
+    child: Text(
+      label,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: textColor,
       ),
-    );
-  }
+    ),
+  );
+}
 
   List<Widget> _buildSubTabContent() {
     switch (_selectedTab) {
