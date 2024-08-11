@@ -10,8 +10,9 @@ final ThemeData lightMode = ThemeData(
   ),
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
-    color: Colors.blue,
-    iconTheme: IconThemeData(color: Colors.white),
+    color: Colors.white,
+    elevation: 0,
+    iconTheme: IconThemeData(color: Colors.black),
     titleTextStyle: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
   ),
@@ -41,7 +42,9 @@ final ThemeData lightMode = ThemeData(
   ),
   iconTheme: const IconThemeData(color: Colors.blue),
   dividerColor: Colors.grey[300],
-  cardColor: Colors.white,
+  cardTheme: CardTheme(
+    color: Colors.grey[200],
+  ),
   // Add other theme properties as needed
 );
 
@@ -54,9 +57,9 @@ final ThemeData darkMode = ThemeData(
   ),
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: const AppBarTheme(
-    color:  Color.fromARGB(255, 0, 170, 255),
-    iconTheme:  IconThemeData(color: Colors.white),
-    titleTextStyle:  TextStyle(
+    color: Color.fromARGB(255, 0, 170, 255),
+    iconTheme: IconThemeData(color: Colors.white),
+    titleTextStyle: TextStyle(
         color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
   ),
   textTheme: const TextTheme(
@@ -85,6 +88,8 @@ final ThemeData darkMode = ThemeData(
   ),
   iconTheme: const IconThemeData(color: Colors.blueAccent),
   dividerColor: Colors.grey[700],
-  cardColor: Colors.grey[850],
-  // Add other theme properties as needed
+  cardColor: Colors.black,
+  cardTheme: const CardTheme(
+    color: Colors.white,
+  ), // Add other theme properties as needed
 );

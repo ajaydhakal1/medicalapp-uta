@@ -5,7 +5,8 @@ class Notification {
   final String description;
   final String time;
 
-  Notification({required this.title, required this.description, required this.time});
+  Notification(
+      {required this.title, required this.description, required this.time});
 }
 
 class ShowNotifications extends StatefulWidget {
@@ -15,7 +16,8 @@ class ShowNotifications extends StatefulWidget {
   _ShowNotificationsState createState() => _ShowNotificationsState();
 }
 
-class _ShowNotificationsState extends State<ShowNotifications> with SingleTickerProviderStateMixin {
+class _ShowNotificationsState extends State<ShowNotifications>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   final List<Notification> allNotifications = [
@@ -94,7 +96,7 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notification'),
-         leading: IconButton(
+        leading: IconButton(
           onPressed: () {
             Navigator.pushNamed(context, "/home");
           },
@@ -110,13 +112,14 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
               isScrollable: true,
               labelColor: Colors.white,
               tabAlignment: TabAlignment.start,
-              indicatorPadding: const EdgeInsets.only(left: -30.0, right: -30.0, top: 3.0, bottom: 3.0),
+              indicatorPadding: const EdgeInsets.only(
+                  left: -30.0, right: -30.0, top: 3.0, bottom: 3.0),
               indicator: BoxDecoration(
                 shape: BoxShape.rectangle,
                 color: Colors.blue,
                 borderRadius: BorderRadius.circular(5.0),
               ),
-              tabs:const [
+              tabs: const [
                 Tab(text: 'All'),
                 Tab(text: 'General'),
                 Tab(text: 'Custom'),
@@ -155,7 +158,10 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
     );
   }
 
-  Widget _buildNotificationCard({required String title, required String description, required String time}) {
+  Widget _buildNotificationCard(
+      {required String title,
+      required String description,
+      required String time}) {
     return Card(
       margin: const EdgeInsets.only(bottom: 16.0),
       child: Padding(
@@ -168,6 +174,7 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
               style: const TextStyle(
                 fontSize: 16.0,
                 fontWeight: FontWeight.bold,
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 8.0),
@@ -183,7 +190,7 @@ class _ShowNotificationsState extends State<ShowNotifications> with SingleTicker
               time,
               style: const TextStyle(
                 fontSize: 12.0,
-                color: Colors.black38,
+                color: Colors.black54,
               ),
             ),
           ],
