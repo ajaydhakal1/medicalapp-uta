@@ -3,7 +3,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:profile_page/Controller/notification_controller.dart';
 import 'package:profile_page/Pages/Notification/show_notifications.dart';
 import 'package:profile_page/Pages/account_management/account%20information/account_information.dart';
 import 'package:profile_page/Pages/account_management/account%20information/change_birthday.dart';
@@ -36,6 +35,7 @@ import 'package:profile_page/Pages/settings/support_and_help/help_center.dart';
 import 'package:profile_page/Pages/settings/support_and_help/make_suggestion.dart';
 import 'package:profile_page/Pages/settings/support_and_help/report_problem.dart';
 import 'package:profile_page/Pages/settings/support_and_help/support_and_help.dart';
+import 'package:profile_page/Pages/splash_screen.dart';
 import 'package:profile_page/theme/theme.dart';
 import 'package:profile_page/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -102,24 +102,25 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final ThemeProvider _themeProvider = ThemeProvider();
+  bool _isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    await Future.delayed(Duration(seconds: 3)); // Simulate loading time
+    setState(() {
+      _isInitialized = true;
+    });
+  }
 
   @override
   void dispose() {
     _themeProvider.removeListener(themeListener);
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    AwesomeNotifications().setListeners(
-      onActionReceivedMethod: NotificationController.onActionReceivedMethod,
-      onNotificationCreatedMethod:
-          NotificationController.onNotificationCreateMethod,
-      onDismissActionReceivedMethod:
-          NotificationController.onDismissActionReceiveMethod,
-    );
-    _themeProvider.addListener(themeListener);
-    super.initState();
   }
 
   themeListener() {
@@ -130,6 +131,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return SplashScreen(); // Show the splash screen while initializing
+    }
+
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(

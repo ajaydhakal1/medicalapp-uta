@@ -27,15 +27,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-void addMedicine() {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return const DialogBox(); // Ensure this is correctly returning a widget
-    },
-  );
-}
-
+  void addMedicine() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return DialogBox();
+        });
+  }
 
   Widget _buildSelectedPage() {
     switch (_selectedIndex) {
@@ -98,8 +96,7 @@ void addMedicine() {
                   children: [
                     Text(
                       '${10 + index}',
-                      style:
-                          const TextStyle(fontSize: 18),
+                      style: const TextStyle(fontSize: 18),
                     ),
                     const SizedBox(height: 8),
                     if (index == 2)
@@ -133,24 +130,24 @@ void addMedicine() {
     );
   }
 
- Widget _buildSubTabItem(String label, int index) {
-  final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-  final textColor = _selectedTab == index
-      ? Theme.of(context).colorScheme.primary
-      : (isDarkMode ? Colors.white : Colors.black);
+  Widget _buildSubTabItem(String label, int index) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final textColor = _selectedTab == index
+        ? Theme.of(context).colorScheme.primary
+        : (isDarkMode ? Colors.white : Colors.black);
 
-  return GestureDetector(
-    onTap: () => _onSubTabSelected(index),
-    child: Text(
-      label,
-      style: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: textColor,
+    return GestureDetector(
+      onTap: () => _onSubTabSelected(index),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: textColor,
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   List<Widget> _buildSubTabContent() {
     switch (_selectedTab) {
